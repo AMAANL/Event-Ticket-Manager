@@ -3,11 +3,21 @@ import hashlib
 import hmac
 import os
 from datetime import datetime, timedelta
+<<<<<<< HEAD
+=======
+
+from dotenv import load_dotenv
+>>>>>>> ddb9aa6 (security env)
 from jose import jwt
 from dotenv import load_dotenv
 
 load_dotenv()
+<<<<<<< HEAD
 SECRET_KEY = os.getenv("SECRET_KEY")
+=======
+
+SECRET_KEY = os.getenv("SECRET_KEY", "default-change-me-in-production")
+>>>>>>> ddb9aa6 (security env)
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 PASSWORD_ITERATIONS = 260_000
 PASSWORD_PREFIX = "pbkdf2_sha256"
@@ -53,7 +63,8 @@ def verify_password(password: str, hashed_password: str) -> bool:
 
 def create_token(data: dict) -> str:
     payload = data.copy()
-    payload["exp"] = datetime.utcnow() + timedelta(hours=10)
+    token_expire_hours = int(os.getenv("TOKEN_EXPIRE_HOURS", "10"))
+    payload["exp"] = datetime.utcnow() + timedelta(hours=token_expire_hours)
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
 
