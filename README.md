@@ -2,6 +2,14 @@
 
 A modern, mobile-responsive event ticketing system with QR code generation, attendee management, and entry scanning capabilities.
 
+## <img width="1269" height="749" alt="Screenshot 2026-05-05 at 11 40 25 PM" src="https://github.com/user-attachments/assets/e17d1f08-0f7f-4d0e-8d43-47399b26c4c2" />
+
+
+## <img width="1467" height="829" alt="Screenshot 2026-05-05 at 11 32 48 PM" src="https://github.com/user-attachments/assets/56b5515e-eb6f-4f3e-a8b9-4ea26537a576" />
+
+## <img width="1358" height="816" alt="Screenshot 2026-05-05 at 11 38 38 PM" src="https://github.com/user-attachments/assets/f822d0a3-9994-42d0-82d5-8ce65f67f5c7" />
+
+
 ## Features
 
 ✅ **Event Management** - Create and manage multiple events  
@@ -124,11 +132,6 @@ The application is fully responsive with:
 
 ## Deployment
 
-### Local Development
-```bash
-./run.sh
-```
-
 ### Docker
 ```bash
 docker build -t event-ticket-manager .
@@ -157,4 +160,4 @@ For issues or questions, please open an issue on GitHub.
 
 ---
 
-Built with ❤️ for event organizers
+
