@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GatePass Event Tickets</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main>
+      <section id="loginScreen" class="login-screen">
+        <div class="login-copy">
+          <p class="eyebrow">Event Ticket System</p>
+          <h1>GatePass</h1>
+          <p class="lede">Organizer login for event creation, attendee import, QR generation, and entry scanning.</p>
+        </div>
+
+        <section class="panel login-panel">
+          <div class="panel-heading">
+            <h2>Organizer Access</h2>
+            <p>Login first. New organizers can register from the same form.</p>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Authentication mode">
+            <button id="loginTab" class="tab active" type="button">Login</button>
+            <button id="registerTab" class="tab" type="button">Register</button>
+          </div>
+
+          <form id="authForm" class="stack">
+            <label>
+              Username
+              <input id="username" autocomplete="username" required />
+            </label>
+            <label>
+              Password
+              <input id="password" type="password" autocomplete="current-password" required />
+            </label>
+            <button id="authSubmit" type="submit">Login</button>
+          </form>
+          <div id="authMessage" class="form-message neutral" aria-live="polite"></div>
+        </section>
+      </section>
+
+      <section id="appScreen" class="app-screen hidden">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Organizer Console</p>
+            <h1>GatePass</h1>
+          </div>
+          <div class="status-strip" aria-live="polite">
+            <span id="sessionLabel">Signed out</span>
+            <button id="logoutBtn" class="ghost" type="button">Log out</button>
+          </div>
+        </header>
+
+        <nav class="task-tabs" aria-label="Organizer tasks">
+          <button class="task-tab active" data-view="create" type="button">Create Event</button>
+          <button class="task-tab" data-view="update" type="button">Update Event</button>
+          <button class="task-tab" data-view="scan" type="button">Scan QR</button>
+        </nav>
+
+        <section id="createView" class="view active">
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Create Event</h2>
+              <p>Create the event first. After that, update it with the attendee file.</p>
+            </div>
+
+            <form id="eventForm" class="inline-form">
+              <label>
+                Event name
+                <input id="eventName" placeholder="Saturday Music Night" required />
+              </label>
+              <button type="submit">Create</button>
+            </form>
+
+            <div id="eventList" class="event-list"></div>
+          </section>
+        </section>
+
+        <section id="updateView" class="view">
+          <section class="panel update-grid">
+            <div class="panel-heading wide">
+              <h2>Update Event</h2>
+              <p>Select an event, upload attendee data, download QR payloads, and track attendance in a table.</p>
+            </div>
+
+            <form id="renameEventForm" class="inline-form wide">
+              <label>
+                Select event
+                <select id="eventSelect"></select>
+              </label>
+              <label>
+                Event name
+                <input id="selectedEventName" placeholder="Event name" required />
+              </label>
+              <button id="renameEventBtn" type="submit">Save</button>
+            </form>
+
+            <form id="importForm" class="import-box">
+              <div>
+                <h3>Attendee file</h3>
+                <p class="muted">Upload CSV, JSON, or XLSX. Any columns are accepted and stored per ticket.</p>
+              </div>
+              <label>
+                File
+                <input id="attendeeFile" type="file" accept=".csv,.json,.xlsx" required />
+              </label>
+              <label class="checkbox-row">
+                <input id="replaceExisting" type="checkbox" checked />
+                Replace existing tickets for this event
+              </label>
+              <button id="importSubmit" type="submit">Import & Generate QR JSON</button>
+            </form>
+
+            <aside class="download-panel">
+              <h3>Downloads</h3>
+              <p class="muted">Use QR JSON before the event. Use attendance report after the event.</p>
+              <button id="downloadJsonBtn" class="ghost" type="button">Download QR JSON List</button>
+              <button id="downloadAttendanceBtn" class="ghost" type="button">Download Attendance CSV</button>
+            </aside>
+
+            <div id="importResult" class="import-result neutral wide">No attendee file imported.</div>
+            <div id="fieldList" class="field-list wide"></div>
+            <div id="attendanceTable" class="attendance-table wide"></div>
+          </section>
+        </section>
+
+        <section id="scanView" class="view">
+          <section class="panel scan-layout">
+            <div class="panel-heading">
+              <h2>Scan QR At Entry</h2>
+              <p>Valid tickets are marked present once. Duplicate scans are blocked.</p>
+            </div>
+
+            <div class="camera-box">
+              <video id="scannerVideo" class="hidden" playsinline muted></video>
+              <div id="cameraPlaceholder">Camera scanner</div>
+            </div>
+            <div class="camera-actions">
+              <button id="startCameraBtn" type="button">Start Camera</button>
+              <button id="stopCameraBtn" class="ghost hidden" type="button">Stop</button>
+            </div>
+
+            <form id="scanForm" class="stack">
+              <label>
+                QR JSON payload
+                <textarea id="scanPayload" rows="7" placeholder='{"ticket_id":"...","event_id":1,"signature":"..."}'></textarea>
+              </label>
+              <button type="submit">Mark Present</button>
+            </form>
+
+            <div id="scanResult" class="scan-result neutral">Waiting for scan</div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
