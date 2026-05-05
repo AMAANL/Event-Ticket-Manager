@@ -378,7 +378,7 @@ function downloadQrJson() {
       ticket_id: ticket.ticket_id,
       attendee_data: ticket.attendee_data,
       qr_json: ticket.qr_json,
-      qr_image: ticket.qr_path,
+      qr_image_url: ticket.qr_url,
       present: ticket.used,
     })),
   };
