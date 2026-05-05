@@ -6,9 +6,8 @@ from datetime import datetime, timedelta
 
 from jose import jwt
 
-
-SECRET_KEY = "supersecret"
-ALGORITHM = "HS256"
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
 PASSWORD_ITERATIONS = 260_000
 PASSWORD_PREFIX = "pbkdf2_sha256"
 
